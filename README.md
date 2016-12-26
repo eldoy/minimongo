@@ -20,7 +20,7 @@ helpers Minimongo::Helpers::Request
 
 # Find
 @domain = find(:domains)
-@domains = find(:domains, {:duration => 50})
+@domains = find(:domains, :duration => 50)
 @message = find_by_id(:messages, p[:id])
 
 # Insert
