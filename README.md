@@ -9,6 +9,8 @@ or add to Gemfile.
 
 ### Usage
 ```ruby
+# All commands supported
+# https://docs.mongodb.com/ruby-driver/master/quick-start
 
 # Connect
 $db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "minimongo")
@@ -17,8 +19,9 @@ $db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "minimongo")
 helpers Minimongo::Helpers::Request
 
 # Find
+@domain = find(:domains)
+@domains = find(:domains, {:duration => 50})
 @message = find_by_id(:messages, p[:id])
-@domains = find(:domains)
 
 # Insert
 insert(:domains, :name => p[:name], :email => p[:email], :reply => p[:reply])
