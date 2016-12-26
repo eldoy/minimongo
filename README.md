@@ -26,3 +26,5 @@ update(:domains, {:_id => p[:id]}, :name => p[:name], :email => p[:email])
 # Delete
 delete(:domains, :_id => p[:id])
 ```
+
+Created and maintained by [Fugroup Ltd.](https://www.fugroup.net) We are the creators of [CrowdfundHQ](https://crowdfundhq.com)
