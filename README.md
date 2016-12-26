@@ -14,7 +14,7 @@ or add to Gemfile.
 $db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "minimongo")
 
 # Include as helper in your Sinatra app
-helpers Flatspace::Helpers::Request
+helpers Minimongo::Helpers::Request
 
 # Find
 @message = find_by_id(:messages, p[:id])
