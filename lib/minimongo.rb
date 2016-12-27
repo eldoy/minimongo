@@ -7,12 +7,9 @@ module Minimongo
   # @license:  MIT, contributions are welcome.
   # # # # # #
 
-  class << self; attr_accessor :db, :model, :module; end
-  @model = true
-  @module = '::'
+  class << self; attr_accessor :db; end
 end
 
-require_relative 'minimongo/ext'
 require_relative 'minimongo/query'
 
 # Indexing

@@ -6,8 +6,7 @@ require './config/boot'
 begin
   start = Time.now
   [
-    'query',
-    'model'
+    'query'
   ].each{|t| require_relative "#{t}_test"}
 rescue => x
   puts x.message
