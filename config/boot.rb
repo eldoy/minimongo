@@ -3,6 +3,11 @@ Bundler.require(:default, :development)
 
 MODE = ENV['RACK_ENV'] || 'development'
 
-require 'yaml'
-
 require './lib/minimongo.rb'
+require './models/model.rb'
+
+# Connect
+Minimongo.db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "minimongo_#{MODE}")
+
+include Futest::Helpers
+include Minimongo::Query

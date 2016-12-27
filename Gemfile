@@ -6,7 +6,7 @@ gem 'puma'
 gem 'minimongo', :git => 'https://github.com/fugroup/minimongo', :branch => 'master'
 
 group :development do
-  gem 'futest'
+  gem 'futest', :git => 'https://github.com/fugroup/futest', :branch => 'master'
   gem 'rerun' #, :git => 'https://github.com/fugroup/rerun.git'
   gem 'rb-fsevent'
   gem 'terminal-notifier'

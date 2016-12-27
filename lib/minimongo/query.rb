@@ -1,74 +1,83 @@
 module Minimongo
-  module Helpers
-    module Query
+  module Query
 
-      def default_options(options = {})
-        options[:token] == false ? {} : {:token => s[:u]}
+    # # # # # # # #
+    # The Query class does setup and executes the queries
+    # It's just the thinnest layer possible on top of the MongoDB driver
+    #
+
+    def self.included(base)
+
+      # Accessors
+      attr_accessor :errors
+
+      # Init
+      def initialize(a = {})
+        # Errors
+        @errors = Hash.new{|h, k| h[k] = []}
+
+        # Attributes
+        a.each{|k, v| instance_variable_set("@#{k}", v)}
       end
 
-      # DB helper method to turn a string ID
-      # representation into a BSON::ObjectId
-      def oid(val)
-        begin
-          BSON::ObjectId.from_string(val)
-        rescue BSON::ObjectId::Invalid
-          val
+      base.extend ClassMethods
+
+      # Instance methods, mirrors the class methods
+      base.class_eval do
+
+        # Find, insert, update, delete, just calls the class methods
+        [:find, :update, :delete, :insert].each do |m|
+          class_eval %Q{def #{m}(*g); self.class.#{m} *arg(g); end}
         end
-      end
 
-      # Find document by id
-      def find_by_id(col, id, options = {})
-        id = oid(id) unless id.is_a?(BSON::ObjectId)
-        return {} unless id.is_a?(BSON::ObjectId)
-        $db[col].find(default_options(options).merge(:_id => id)).first || {}
-      end
+        # Object ID
+        def oid(v); self.class.oid(v); end
 
-      # Find first
-      def first(col, query = {}, options = {})
-        cursor(col, query, options).first
-      end
-
-      # Count
-      def count(col, query = {}, options = {})
-        find(col, query, options).count
-      end
-
-      # Cursor for query
-      def cursor(col, query, options = {})
-        k, v = query.to_a.flatten
-        if v.blank?
-          $db[col].find(default_options(options))
-        elsif v.is_a?(Array)
-          $db[col].find(default_options(options).merge(k => {'$in' => v}))
-        else
-          $db[col].find(default_options(options).merge(k => v))
+        # Args
+        def arg(g)
+          # Insert the collection if none found
+          g.insert(0, "#{self.class.to_s.downcase}s".to_sym) if g[0].is_a?(Hash)
+          # Insert the ID into the query if it exists
+          g[1].merge!(:_id => (@_id ||= BSON::ObjectId.new)) if g[1].is_a?(Hash)
+          g
         end
+
+      end
+    end
+
+    # Class methods
+    module ClassMethods
+
+      # String to BSON::ObjectId
+      def oid(v)
+        BSON::ObjectId.from_string(v) rescue v
       end
 
-      # Find. Returns the records
-      def find(col, query = {}, options = {})
-        return find_by_id(col, query) if query.is_a?(String) or query.is_a?(BSON::ObjectId)
-        c = cursor(col, query, options)
-        c = c.sort(options[:sort]) if options[:sort]
-        c.to_a
+      # Find. Returns a cursor
+      def find(*g)
+        Minimongo.db[col(g)].find(*g)
       end
 
-      # Insert and return the document
-      def insert(col, values, options = {})
-        d = $db[col].insert_one(default_options(options).merge(values))
-        find_by_id(col, d.inserted_id, options)
+      # Insert and return the result
+      def insert(*g)
+        Minimongo.db[col(g)].insert_one(*g)
       end
 
       # Update
-      def update(col, query, values, upsert = true)
-        query[:_id] = oid(query[:_id]) if query and query[:_id]
-        $db[col].update_one(default_options.merge(query), {'$set' => values}, :upsert => upsert)
+      def update(*g)
+        Minimongo.db[col(g)].update_one(*g)
       end
 
       # Delete
-      def delete(col, query)
-        query[:_id] = oid(query[:_id]) if query and query[:_id]
-        $db[col].delete_one(default_options.merge(query))
+      def delete(*g)
+        Minimongo.db[col(g)].delete_one(*g)
+      end
+
+      private
+
+      # Collection
+      def col(g)
+        g[0].is_a?(Symbol) ? g.delete_at(0) : "#{self.to_s.downcase}s".to_sym
       end
 
     end
