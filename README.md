@@ -13,15 +13,15 @@ or add to Gemfile.
 # https://docs.mongodb.com/ruby-driver/master/quick-start
 
 # Connect
-$db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "minimongo")
+Minimongo.db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "minimongo")
 
 # Include as helper in your Sinatra app
-helpers Minimongo::Helpers::Request
+helpers Minimongo::Query
 
 # Find
-@domain = find(:domains)
-@domains = find(:domains, :duration => 50)
-@message = find_by_id(:messages, p[:id])
+d = find(:domains).first
+d = find(:domains).sort(:duration => -1).to_a
+m = find(:messages, :_id => d._id).limit(1).first
 
 # Insert
 insert(:domains, :name => p[:name], :email => p[:email], :reply => p[:reply])
