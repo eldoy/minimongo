@@ -72,3 +72,13 @@ is m, BSON::Document
 
 m = all(:models, :duration => {:$gt => 6})
 is m, Array
+
+test 'count'
+
+n = count(:models)
+is n, Integer
+is n, :gt => 0
+
+n = count(:models, :duration => 50)
+is n, Integer
+is n, :gt => 0
