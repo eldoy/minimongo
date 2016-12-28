@@ -23,6 +23,18 @@ d = find(:domains).first
 d = find(:domains).sort(:duration => -1).to_a
 m = find(:messages, :_id => d._id).limit(1).first
 
+# All
+m = all(:messages)
+m = all(:messages, :duration => {:$gt => 6})
+
+# First
+m = first(:models)
+m = first(:models, :goal => 7)
+
+# Last
+m = last(:models)
+m = last(:models, :duration => {:$ne => 6})
+
 # Insert
 insert(:domains, :name => p[:name], :email => p[:email], :reply => p[:reply])
 

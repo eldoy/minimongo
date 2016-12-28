@@ -6,25 +6,33 @@ module Minimongo
       BSON::ObjectId.from_string(v) rescue BSON::ObjectId.new
     end
 
-    # Find. Returns a cursor
-    def find(*g)
-      Minimongo.db[g.shift].find(*g)
+    # Find, insert, update, delete
+    [:find, :insert, :update, :delete].each do |m|
+      class_eval %Q{
+        def #{m}(*g)
+          Minimongo.db[g.shift].#{m != :find ? "#{m}_one" : m}(*g)
+        end
+      }
     end
 
-    # Insert and return the result
-    def insert(*g)
-      Minimongo.db[g.shift].insert_one(*g)
+    # First
+    def first(*g)
+      find(*g).limit(-1).first
     end
 
-    # Update
-    def update(*g)
-      Minimongo.db[g.shift].update_one(*g)
+    # Last
+    def last(*g)
+      find(*g).limit(-1).sort(:$natural => -1).first
     end
 
-    # Delete
-    def delete(*g)
-      Minimongo.db[g.shift].delete_one(*g)
+    # Count
+    def count(*g)
+      find(*g).count
     end
 
+    # All
+    def all(*g)
+      find(*g).to_a
+    end
   end
 end

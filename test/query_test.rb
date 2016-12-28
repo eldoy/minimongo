@@ -49,3 +49,26 @@ m = find(:models).sort(:duration => -1).limit(5).to_a
 is m, Array
 is m.size, 5
 is m.first, BSON::Document
+
+test 'first'
+
+m = first(:models, :goal => 7)
+is m, nil
+
+m = first(:models)
+is m, BSON::Document
+
+test 'last'
+n = last(:models)
+is n, BSON::Document
+is n[:_id].to_s, :ne => m[:_id].to_s
+
+test 'all'
+n = all(:models)
+is n, Array
+
+m = last(:models, :duration => {:$ne => 6})
+is m, BSON::Document
+
+m = all(:models, :duration => {:$gt => 6})
+is m, Array
