@@ -1,5 +1,5 @@
 # Minimongo
-MongoDB ruby helpers for flat space ruby apps.
+The world's tiniest MongoDB Ruby library.
 
 ### Installation
 ```
