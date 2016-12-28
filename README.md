@@ -18,6 +18,12 @@ Minimongo.db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "minimongo"
 # Include as helper in your Sinatra app
 helpers Minimongo::Query
 
+# Convert string to Object ID
+oid('586333360aec08e87bd62180')
+
+# Create a new Object ID
+oid(:new)
+
 # Find needs first, count or to_a after
 d = find(:domains).first
 d = find(:domains).sort(:duration => -1).to_a

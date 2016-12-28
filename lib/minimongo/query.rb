@@ -2,7 +2,7 @@ module Minimongo
   module Query
 
     # String to BSON::ObjectId
-    def oid(v)
+    def oid(v = nil)
       BSON::ObjectId.from_string(v) rescue BSON::ObjectId.new
     end
 
