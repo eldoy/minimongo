@@ -18,10 +18,11 @@ Minimongo.db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "minimongo"
 # Include as helper in your Sinatra app
 helpers Minimongo::Query
 
-# Find
+# Find needs first, count or to_a after
 d = find(:domains).first
 d = find(:domains).sort(:duration => -1).to_a
 m = find(:messages, :_id => d._id).limit(1).first
+c = find(:messages).count
 
 # All
 m = all(:messages)
@@ -34,6 +35,10 @@ m = first(:models, :goal => 7)
 # Last
 m = last(:models)
 m = last(:models, :duration => {:$ne => 6})
+
+# Count
+c = count(:messages)
+c = count(:messages, :goal => 'hello')
 
 # Insert
 insert(:domains, :name => p[:name], :email => p[:email], :reply => p[:reply])
