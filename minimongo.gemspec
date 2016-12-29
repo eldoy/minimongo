@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
   s.name        = 'minimongo'
-  s.version     = '0.0.2'
-  s.date        = '2016-12-28'
-  s.summary     = "MongoDB Helpers for flat space apps"
-  s.description = "Helpers that sits right on top of mongodb with a nicer syntax"
+  s.version     = '0.0.3'
+  s.date        = '2016-12-29'
+  s.summary     = "Tiny MongoDB library"
+  s.description = "Helpers that sits right on top of mongodb with a nicer syntax. Only 6 lines of code."
   s.authors     = ["Fugroup Limited"]
   s.email       = 'mail@fugroup.net'
   s.files       = ["lib/minimongo.rb"]
