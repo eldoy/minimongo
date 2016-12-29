@@ -1,5 +1,5 @@
 # Minimongo
-The world's tiniest MongoDB Ruby library.
+The world's tiniest MongoDB Ruby library, only 6 lines of code. Nothing is faster than no code.
 
 ### Installation
 ```
