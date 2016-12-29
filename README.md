@@ -56,6 +56,7 @@ delete(:domains, :_id => p[:id])
 oid('586333360aec08e87bd62180')
 
 # New Object ID
+oid
 oid(:new)
 
 ```
