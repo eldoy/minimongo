@@ -15,7 +15,10 @@ or add to Gemfile.
 # Connect
 Minimongo.db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "minimongo")
 
-# Include as helper in your Sinatra app
+# Include methods in a class or module
+include Minimongo::Query
+
+# Include as helper in a Sinatra app
 helpers Minimongo::Query
 
 # Find needs first, count or to_a after
