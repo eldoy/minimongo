@@ -1,6 +1,10 @@
 # Minimongo
 The world's tiniest MongoDB Ruby library, only 6 lines of code. Nothing is faster than no code.
 
+If you need models, have a look at [Modelize,](https://github.com/fugroup/modelize) it can be run on top of Minimongo.
+
+We also have [Mongocore](https://github.com/fugroup/mongocore) if you're looking for a full ORM.
+
 ### Installation
 ```
 gem install minimongo
