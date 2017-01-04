@@ -9,10 +9,13 @@ module Minimongo
     # Intended use is with tests, especially Fugroup/Futest, but can also
     # be used for full fledged applications if you don't want an ORM.
     #
-    # If you need an ORM, check out Fugroup/Mongocore on Github.
+    # If you need models for Minimongo, check out https://github.com/fugroup/modelize
+    #
+    # If you need an ORM, check out https://github.com/fugroup/mongocore
     #
 
-    # String to BSON::ObjectId
+    # Creates a BSON::ObjectId from a string, or a new one
+    # Use with: oid(string), or oid, oid(:new), oid(nil) to create a new BSON::ObjectId
     def oid(v = nil); BSON::ObjectId.from_string(v) rescue BSON::ObjectId.new; end
 
     # Find, insert, update, delete
@@ -23,5 +26,6 @@ module Minimongo
     def last(*g); find(*g).limit(-1).sort(:$natural => -1).first; end
     def count(*g); find(*g).count; end
     def all(*g); find(*g).to_a; end
+
   end
 end
