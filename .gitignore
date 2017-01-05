@@ -1,10 +1,2 @@
-.ruby-version
-.DS_Store
-.sass-cache
 .bundle
-log/**/*
-tmp/**/*
-.idea
-log
-tmp
-.settings
+Gemfile.lock
