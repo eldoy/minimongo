@@ -1,19 +1,18 @@
-GIT
-  remote: https://github.com/fugroup/futest
-  revision: 4e5a65660b2359ecc88a03a29c9a59003dcd273f
-  branch: master
+PATH
+  remote: .
   specs:
-    futest (0.0.4)
-      rest-client (>= 2.0)
+    minimongo (0.1.0)
+      mongo (>= 2.2)
 
 GEM
   remote: https://rubygems.org/
   specs:
     bson (4.2.1)
-    bson_ext (1.5.1)
     domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     ffi (1.9.14)
+    futest (0.1.0)
+      rest-client (>= 2.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     listen (3.1.5)
@@ -45,9 +44,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson_ext
-  futest!
-  mongo (~> 2.2)
+  futest
+  minimongo!
   rb-fsevent
   rerun
   terminal-notifier

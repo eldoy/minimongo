@@ -1,3 +1,5 @@
+require 'mongo'
+
 module Minimongo
 
   # # # # # #
