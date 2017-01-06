@@ -17,7 +17,7 @@ or add to Gemfile.
 # https://docs.mongodb.com/ruby-driver/master/quick-start
 
 # Connect
-Minimongo.db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "minimongo")
+Minimongo.db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => "minimongo_#{ENV['RACK_ENV']}")
 
 # Include methods in a class or module
 include Minimongo::Query
