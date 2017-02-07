@@ -58,6 +58,9 @@ is m, nil
 m = first(:models)
 is m, BSON::Document
 
+n = first(:models, m[:_id].to_s)
+is n[:_id], m[:_id]
+
 test 'last'
 n = last(:models)
 is n, BSON::Document

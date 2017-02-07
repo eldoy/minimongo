@@ -19,7 +19,7 @@ module Minimongo
     def oid(v = nil); BSON::ObjectId.from_string(v) rescue BSON::ObjectId.new; end
 
     # Find, insert, update, delete
-    [:find, :insert, :update, :delete].each{|m| class_eval %Q{def #{m}(*g); Minimongo.db[g.shift].#{m != :find ? "#{m}_one" : m}(*g); end}}
+    [:find, :insert, :update, :delete].each{|m| class_eval %Q{def #{m}(*g); g[1] = {:_id => oid(g[1])} if g[1].is_a?(String); Minimongo.db[g.shift].#{m != :find ? "#{m}_one" : m}(*g); end}}
 
     # First, last, count, all
     def first(*g); find(*g).limit(-1).first; end
