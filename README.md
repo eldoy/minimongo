@@ -56,6 +56,10 @@ update(:domains, {:_id => p[:id]}, :name => p[:name], :email => p[:email])
 # Delete
 delete(:domains, :_id => p[:id])
 
+# String as ID
+find(:domains, '586333360aec08e87bd62180')
+first(:domains, '586333360aec08e87bd62180')
+
 # String to Object ID
 oid('586333360aec08e87bd62180')
 
