@@ -25,6 +25,10 @@ include Minimongo::Query
 # Include as helper in a Sinatra app
 helpers Minimongo::Query
 
+# Use with global variable
+$db = include Minimongo::Query
+$db.find(:messages).all
+
 # Find needs first, count or to_a after
 d = find(:domains).first
 d = find(:domains).sort(:duration => -1).to_a

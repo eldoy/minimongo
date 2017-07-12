@@ -10,7 +10,7 @@ begin
   ].each{|t| require_relative "#{t}_test"}
 rescue => x
   puts x.message
-  e(x)
+  err(x)
 ensure
   puts Time.now - start
 end
